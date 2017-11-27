@@ -1,0 +1,27 @@
+
+<div class="row">
+  <div class="col-md-9">
+    <%= image_tag(@pic.picture_url(:thumb)) if @pic.picture.present? %>
+  </div>
+
+  <div class="col-md-3">
+    <p><b>Name: </b><%= @pic.name %></p>
+    <p><b>Description: </b><%= @pic.description %></p>
+    <p>
+      <%= link_to 'Edit', edit_pic_path(@pic), class: "btn btn-warning" %> |
+		  <%= link_to 'Destroy', @pic, data: { confirm: 'Are you sure?' }, method: :delete, class: "btn btn-danger" %> |
+		  <%= link_to 'Back', pics_path, class: "btn btn-info" %>
+  
+    </p>
+  </div>
+</div>
+<h3>Comments</h3>
+<% @comments.each do |comment| %>
+  <div>
+    <strong><%= comment.user_name %></strong>
+    <br />
+    <p><%= comment.body %></p>
+    <p><%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' } %></p>
+  </div>
+<% end %>
+<%= render partial: 'comments/form', locals: { comment: @comment } %>
