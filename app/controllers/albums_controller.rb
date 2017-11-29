@@ -1,7 +1,6 @@
 class AlbumsController < ApplicationController
 	before_action :set_album, only: [:show, :edit, :update, :destroy]
   
-
   # GET /albums
   # GET /albums.json
   def index
@@ -11,11 +10,13 @@ class AlbumsController < ApplicationController
   # GET /albums/1
   # GET /albums/1.json
   def show
+    @pics = @album.pics.all
   end
 
   # GET /albums/new
   def new
     @album = Album.new
+    @pic = @album.pics.build
   end
 
   # GET /albums/1/edit
@@ -27,11 +28,14 @@ class AlbumsController < ApplicationController
   def create
     @album = Album.new(album_params)
     @user = User.find_by_id @album.user_id
-    @albums = @user.albums.all
+    #@albums = @user.albums.all
 
     respond_to do |format|
       if @album.save
-        format.html { redirect_to user_path(@album.user_id), notice: 'album was successfully created.' }
+        params[:pics]['picture'].each do |a|
+           @pic = @album.pics.create!(:picture => a)
+        end
+        format.html { redirect_to @album, notice: 'Album was successfully created.' }
         format.json { render :show, status: :created, location: @album }
       else
         format.html { render :template => "users/show" }
@@ -66,12 +70,12 @@ class AlbumsController < ApplicationController
   private
 
   	# Use callbacks to share common setup or constraints between actions.
-    def set_comment
+    def set_album
       @album = Album.find(params[:id])
     end
 
     def album_params
-      params.require(:album).permit(:name, :description, :user_id)
+      params.require(:album).permit(:name, :description, :user_id, pics_attributes: [:id, :album_id, :user_id, :picture])
     end
 end
 

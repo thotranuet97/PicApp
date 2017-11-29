@@ -1,4 +1,4 @@
-<%= form_with(model: album, local: true) do |form| %>
+<%= form_with(model: album, local: true, html: {multipart: true}) do |form| %>
   <% if album.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(album.errors.count, "error") %> prohibited this album from being saved:</h2>
@@ -12,6 +12,10 @@
   <% end %>
 
   <div class="field">
+    <%= form.hidden_field :user_id, value: current_user.id %>
+  </div>
+
+  <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name, id: :album_name %>
   </div>
@@ -21,7 +25,12 @@
     <%= form.text_area :description, id: :album_description %>
   </div>
 
-  <%= form.hidden_field :user_id, value: current_user.id %>
+  <%= form.fields_for :pics do |p| %>
+    <div class="field">
+      <%= p.label :picture %><br>
+      <%= p.file_field :picture, multiple: true, name: "pics[picture][]", class: "upload-image" %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

@@ -15,5 +15,10 @@
   <%= @album.user_id %>
 </p>
 
+<% @pics.each do |p| %>
+  <%= image_tag p.picture_url, style: "max-width: 200px; max-height: 200px" %>
+  <%= link_to "Destroy", pic_path(p), method: :delete %>
+<% end %>
+
 <%= link_to 'Edit', edit_album_path(@album) %> |
 <%= link_to 'Back', albums_path %>

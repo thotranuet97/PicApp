@@ -1,8 +1,7 @@
-
+<h2 style="text-align: center; margin-bottom: 20px">Log in</h2>
 <div class="row">
   <div class="col-md-2"></div>
-  <div class="col-md-8">
-    <h2 style="text-align: center;">Log in</h2>
+  <div class="col-md-8" style="border: 1px solid; border-radius: 5px; padding: 15px 15px">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: "form-horizontal") do |form| %>
       <div class="form-group">
         <%= form.label :email%>
@@ -28,7 +27,6 @@
       </div>     
     <% end %>
     <%= render "devise/shared/links" %>
-
   </div>
   <div class="col-md-2"></div>
 </div>

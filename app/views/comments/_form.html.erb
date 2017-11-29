@@ -11,25 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :user_name %>
-    <%= form.text_field :user_name, id: :comment_user_name %>
-  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="field">
+        <%= form.hidden_field :user_id, value: current_user.id %>
+      </div>
 
-  <div class="field">
-    <%= form.label :body %>
-    <%= form.text_area :body, id: :comment_body %>
-    <%= form.hidden_field :pic_id %>
-  </div>
-  
-  <div class="field">
-  <%= form.label :picture %><br>
-  <%= form.file_field :picture %>
-  </div>
+      <div class="field">
+        <%= form.hidden_field :user_name, value: current_user.user_name %>
+      </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+      <div class="field">
+        <%= form.label :body %>
+        <%= form.text_area :body, id: :comment_body, class: "form-control" %>
+        <%= form.hidden_field :pic_id %>
+      </div>
 
-  <%= form.hidden_field :user_id, value: current_user.id %>
+      <div class="actions" style="margin-top: 20px">
+        <%= form.submit "Comment", class: "col-md-3 btn btn-outline-success" %>
+      </div>
+    </div>
+  </div>
 <% end %>

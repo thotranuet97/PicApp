@@ -28,7 +28,7 @@ class PicsController < ApplicationController
   # POST /pics.json
   def create
     @pic = Pic.new(pic_params)
-    #@pic.user_id = current_user.id 
+    @album = Album.find_by_id @pic.album_id
     #@pics = @user.pics.all
 
     respond_to do |format|

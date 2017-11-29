@@ -1,27 +1,38 @@
-
 <div class="row">
-  <div class="col-md-9">
-    <%= image_tag(@pic.picture_url(:thumb)) if @pic.picture.present? %>
+  <div class="col-sm-5">
+    <%= image_tag(@pic.picture_url, :width => 500) if @pic.picture.present? %>
   </div>
-
-  <div class="col-md-3">
-    <p><b>Name: </b><%= @pic.name %></p>
-    <p><b>Description: </b><%= @pic.description %></p>
-    <p>
-      <%= link_to 'Edit', edit_pic_path(@pic), class: "btn btn-warning" %> |
-		  <%= link_to 'Destroy', @pic, data: { confirm: 'Are you sure?' }, method: :delete, class: "btn btn-danger" %> |
-		  <%= link_to 'Back', pics_path, class: "btn btn-info" %>
   
-    </p>
+  <div class="col-sm-7" style="padding-left: 30px;">
+    <div class="col-sm-10" style="border: 1px ridge; border-radius: 5px; padding-left: 15px;">
+      <p style="margin-top: 10px"><b>Name: </b><%= @pic.name %></p>
+      <p><b>Description: </b><%= @pic.description %></p>
+      <p>
+        <% if (current_user.admin? || (@pic.user_id == current_user.id)) %>
+          <%= link_to 'Edit', edit_pic_path(@pic), class: "btn btn-outline-warning" %> 
+          <%= link_to 'Delete', @pic, data: { confirm: 'Are you sure?' }, method: :delete, class: "btn btn-outline-danger" %> 
+        <% end %>
+        <%= link_to 'Back', pics_path, class: "btn btn-outline-info" %>
+      </p>
+    </div>
+  
+    <div style="margin-top: 30px;">
+      <h3>Comments</h3>
+      <% @comments.each do |comment| %>
+        <div class="row" style="margin-top: 15px;">
+          <div class="col-md-3">
+            <strong><%= comment.user_name %>:</strong>
+          </div>
+          <div class="col-md-8"><%= comment.body %></div>
+          <% if (current_user.admin? || (comment.user_id == current_user.id)) %>
+            <div class="col-md-1">
+            <%= link_to 'Delete', comment_path(comment), method: :delete, class: "btn btn-outline-danger", data: { confirm: 'Are you sure?' } %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <%= render partial: 'comments/form', locals: { comment: @comment } %>
+    </div> 
   </div>
 </div>
-<h3>Comments</h3>
-<% @comments.each do |comment| %>
-  <div>
-    <strong><%= comment.user_name %></strong>
-    <br />
-    <p><%= comment.body %></p>
-    <p><%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' } %></p>
-  </div>
-<% end %>
-<%= render partial: 'comments/form', locals: { comment: @comment } %>
+
