@@ -16,7 +16,15 @@ class PicsController < ApplicationController
   end
 
   def hashtag
+<<<<<<< HEAD
+    if params[:tag]
+      @pics =Pic.tagged_with(params[:tag])
+    else
+      @pics = Pic.all
+    end
+=======
     @pics = Pic.tagged_with(:tag)
+>>>>>>> 2a7907e4534f75a031a124aaa23e209984bdd525
   end
 
   # GET /pics/new

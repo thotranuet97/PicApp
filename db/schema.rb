@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128114407) do
+ActiveRecord::Schema.define(version: 20171129223408) do
 
   create_table "albums", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -51,6 +51,21 @@ ActiveRecord::Schema.define(version: 20171128114407) do
     t.integer "album_id"
   end
 
+  create_table "taggings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "tag_id"
+    t.bigint "pic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pic_id"], name: "index_taggings_on_pic_id"
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -65,11 +80,13 @@ ActiveRecord::Schema.define(version: 20171128114407) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "user_name"
-    t.boolean "admin"
-    t.boolean "lock"
+    t.boolean "admin", default: false
+    t.boolean "lock", default: false
     t.integer "album_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "taggings", "pics"
+  add_foreign_key "taggings", "tags"
 end
