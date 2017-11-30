@@ -38915,3 +38915,36 @@ Processing by Admin::UsersController#index as HTML
 Completed 200 OK in 38ms (Views: 34.4ms | ActiveRecord: 1.5ms)
 
 
+Started GET "/admin/users" for 127.0.0.1 at 2017-11-29 20:17:41 +0700
+Processing by Admin::UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 7 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  Rendering admin/users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT `users`.* FROM `users`[0m
+  Rendered admin/users/index.html.erb within layouts/application (3.7ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 40ms (Views: 36.2ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/pics" for 127.0.0.1 at 2017-11-29 20:17:42 +0700
+Processing by PicsController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 7 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  Rendering pics/index.html.erb within layouts/application
+  [1m[36mPic Load (0.3ms)[0m  [1m[34mSELECT `pics`.* FROM `pics`[0m
+  Rendered pics/index.html.erb within layouts/application (21.3ms)
+  Rendered layouts/_header.html.erb (1.0ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 66ms (Views: 51.1ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/pics" for 127.0.0.1 at 2017-11-29 20:21:30 +0700
+Processing by PicsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 7 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  Rendering pics/index.html.erb within layouts/application
+  [1m[36mPic Load (1.5ms)[0m  [1m[34mSELECT `pics`.* FROM `pics`[0m
+  Rendered pics/index.html.erb within layouts/application (5.9ms)
+  Rendered layouts/_header.html.erb (2.0ms)
+  Rendered layouts/_footer.html.erb (0.9ms)
+Completed 200 OK in 43ms (Views: 39.1ms | ActiveRecord: 1.8ms)
+
+

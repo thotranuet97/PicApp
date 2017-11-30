@@ -15,6 +15,10 @@ class PicsController < ApplicationController
     @comment = @pic.comments.build
   end
 
+  def hashtag
+    @pics = Pic.tagged_with(:tag)
+  end
+
   # GET /pics/new
   def new
     @pic = Pic.new
@@ -74,6 +78,6 @@ class PicsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pic_params
-      params.require(:pic).permit(:name, :description, :picture, :user_id)
+      params.require(:pic).permit(:name, :description, :picture, :user_id, :tag_list)
     end
 end

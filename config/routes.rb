@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   root to: redirect('/pics')
   resources :pics
   resource :user
-
+  get 'tags/:tag', to: 'pics#hashtag', as: :tag
 
   namespace :admin do
     resources :users do
